@@ -1,19 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ProductList @delete:product="deleteProduct" @update:product="updateProduct"  :products="products"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ProductList from "./components/ProductList.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    ProductList
+  },
+  data() {
+    return {
+      products: [{ 
+        id:1, categoryId:1, productName:'Laptop', quantityPerUnit:'Acer Laptop',
+        unitPrice:5000, unitsInStock:2 },{ 
+        id:2, categoryId:1, productName:'Mouse', quantityPerUnit:'Acer Mouse',
+        unitPrice:50, unitsInStock:3 },{ 
+        id:3, categoryId:2, productName:'Keyboard', quantityPerUnit:'Acer Keyboard',
+        unitPrice:500, unitsInStock:20 }
+      ]
+    };
+  },
+  methods:{
+    deleteProduct(product){
+      this.products = this.products.filter(
+        productToFilter=>productToFilter.id!==product.id
+      )
+    },
+    updateProduct(){}
   }
-}
+};
 </script>
 
 <style>
@@ -26,3 +45,5 @@ export default {
   margin-top: 60px;
 }
 </style>
+
+
